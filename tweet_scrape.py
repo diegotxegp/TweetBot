@@ -30,16 +30,13 @@ class TwitterStream(tp.StreamListener):
             else:
                 tg_text = d['text']
             #print(reply)
-            if(str(reply) == 'None'):
-                if('RT @' not in tg_text):    
-                    bot = Bot(token=token)
-                    if has_media:
-                        bot.sendMessage(chat_id=chatid,text=tg_text+"\n"+tweet_url+"\n"+"Via"+"|"+"<a href='"+tweet_link+"'>"+tw_name+"</a>"+"|",timeout=200,disable_web_page_preview=False,parse_mode=ParseMode.HTML)
-                    else:
-                         bot.sendMessage(chat_id=chatid,text=tg_text+"\n"+tweet_url+"\n"+"Via"+"|"+"<a href='"+tweet_link+"'>"+tw_name+"</a>"+"|",timeout=200,disable_web_page_preview=True,parse_mode=ParseMode.HTML)   
-                    time.sleep(3)
+            if(str(reply) == 'None'):    
+                bot = Bot(token=token)
+                if has_media:
+                    bot.sendMessage(chat_id=chatid,text=tg_text+"\n"+tweet_url+"\n"+"Via"+"|"+"<a href='"+tweet_link+"'>"+tw_name+"</a>"+"|",timeout=200,disable_web_page_preview=False,parse_mode=ParseMode.HTML)
                 else:
-                    print("It's a retweet so not posting it")
+                    bot.sendMessage(chat_id=chatid,text=tg_text+"\n"+tweet_url+"\n"+"Via"+"|"+"<a href='"+tweet_link+"'>"+tw_name+"</a>"+"|",timeout=200,disable_web_page_preview=True,parse_mode=ParseMode.HTML)   
+                time.sleep(3)
             else:
                 print("It's a reply so not posting that")
         except Exception as e:
